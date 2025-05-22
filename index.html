@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DU Finance 27th Batch - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+   
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <!-- Header Navigation -->
+      <div class="nav-container">
+        <a href="#ssd" class="nav-button ssd active">
+          <i class="fas fa-home"></i> SSD
+        </a>
+        <a href="#results" class="nav-button results">
+          <i class="fas fa-chart-bar"></i> RESULTS
+        </a>
+        <a href="#daily-fin" class="nav-button daily-fin">
+          <i class="fas fa-newspaper"></i> THE DAILY FIN
+        </a>
+        <a href="#previous" class="nav-button previous">
+          <i class="fas fa-history"></i> PREVIOUS SEMESTERS
+        </a>
+      </div>
+
+      <div class="main-grid">
+        <!-- Left Column - Logo and Countdown -->
+        <div>
+          <div class="logo-section">
+            <div class="logo-container">
+              <h1 class="logo-title">
+                DU <span class="finance">FINANCE</span>
+              </h1>
+              <h2 class="logo-batch">
+                29<span class="batch-number">th</span> BATCH
+              </h2>
+              <!-- <p class="logo-endgame">ENDGAME</p> -->
+            </div>
+
+            <!-- Enhanced Countdown Timer -->
+            <div class="countdown-container">
+              <div class="countdown-header">
+                <div class="countdown-title">1st Mid Term Exam</div>
+                <div class="countdown-subtitle">
+                  Time remaining until 1st Mid term exam
+                </div>
+              </div>
+
+              <div class="countdown-grid">
+                <div class="countdown-item">
+                  <div class="countdown-number" id="days">0</div>
+                  <div class="countdown-label">days</div>
+                </div>
+                <div class="countdown-item">
+                  <div class="countdown-number" id="hours">0</div>
+                  <div class="countdown-label">hours</div>
+                </div>
+                <div class="countdown-item">
+                  <div class="countdown-number" id="minutes">0</div>
+                  <div class="countdown-label">minutes</div>
+                </div>
+                <div class="countdown-item">
+                  <div class="countdown-number" id="seconds">0</div>
+                  <div class="countdown-label">seconds</div>
+                </div>
+              </div>
+
+              <div class="countdown-footer">
+                <i class="fas fa-star"></i>
+                Every second counts!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column - Main Content -->
+        <div>
+          <div class="main-content">
+            <div class="semester-header">
+              <i class="fas fa-calendar-alt semester-icon"></i>
+              <h2 class="semester-title">4th Semester</h2>
+            </div>
+
+            <!-- Semester Action Buttons -->
+            <div class="semester-buttons">
+              <a href="#syllabus" class="semester-button syllabus">
+                <i class="fas fa-book"></i> SYLLABUS
+              </a>
+              <a href="https://docs.google.com/spreadsheets/d/1LZBt4UpgkJi8W9sJ9p3T9KpuvvK0JSwa7bc3d-ZWjzo/edit?usp=sharing" class="semester-button lesson">
+                <i class="fas fa-chart-line"></i> LESSON PROGRESSION
+              </a>
+              <a href="https://drive.google.com/file/d/1Jt1ozBIcfKTOP1_zmKFZDFJ-T8H-qrHH/view?usp=sharing" class="semester-button outline">
+                <i class="fas fa-list"></i> COURSE OUTLINE
+              </a>
+              <a href="#routine" class="semester-button routine">
+                <i class="fas fa-clock"></i> ROUTINE
+              </a>
+            </div>
+
+            <!-- Courses -->
+            <div class="courses-container">
+              <!-- F-406: Entrepreneurship -->
+              <div class="course-item">
+                <h3 class="course-title">F-206: Business Taxation</h3>
+                <div class="course-buttons">
+                  <a href="#f406-books" class="course-button books">
+                    <i class="fas fa-book"></i> BOOKS
+                  </a>
+                  <a href="#f406-notes" class="course-button notes">
+                    <i class="fas fa-sticky-note"></i> NOTES
+                  </a>
+                  <a href="#f406-slides" class="course-button slides">
+                    <i class="fas fa-presentation"></i> SLIDES
+                  </a>
+                  <a href="#f406-pq" class="course-button pq">
+                    <i class="fas fa-question-circle"></i> PQ
+                  </a>
+                  <a href="#f406-audio" class="course-button audio">
+                    <i class="fas fa-volume-up"></i> CLASS AUDIO
+                  </a>
+                </div>
+              </div>
+
+              <!-- F-407: Portfolio Management -->
+              <div class="course-item">
+                <h3 class="course-title">F-207:Applied Statistics</h3>
+                <div class="course-buttons">
+                  <a href="#f407-books" class="course-button books">
+                    <i class="fas fa-book"></i> BOOKS
+                  </a>
+                  <a href="#f407-notes" class="course-button notes">
+                    <i class="fas fa-sticky-note"></i> NOTES
+                  </a>
+                  <a href="#f407-slides" class="course-button slides">
+                    <i class="fas fa-presentation"></i> SLIDES
+                  </a>
+                  <a href="#f407-pq" class="course-button pq">
+                    <i class="fas fa-question-circle"></i> PQ
+                  </a>
+                  <a href="#f407-audio" class="course-button audio">
+                    <i class="fas fa-volume-up"></i> CLASS AUDIO
+                  </a>
+                </div>
+              </div>
+
+              <!-- F-408: Strategic Management -->
+              <div class="course-item">
+                <h3 class="course-title">F-208: Macroeconomics</h3>
+                <div class="course-buttons">
+                  <a href="#f408-books" class="course-button books">
+                    <i class="fas fa-book"></i> BOOKS
+                  </a>
+                  <a href="#f408-notes" class="course-button notes">
+                    <i class="fas fa-sticky-note"></i> NOTES
+                  </a>
+                  <a href="#f408-slides" class="course-button slides">
+                    <i class="fas fa-presentation"></i> SLIDES
+                  </a>
+                  <a href="#f408-pq" class="course-button pq">
+                    <i class="fas fa-question-circle"></i> PQ
+                  </a>
+                  <a href="#f408-audio" class="course-button audio">
+                    <i class="fas fa-volume-up"></i> CLASS AUDIO
+                  </a>
+                </div>
+              </div>
+
+              <!-- F-409: Introduction to Derivatives -->
+              <div class="course-item">
+                <h3 class="course-title">
+                  F-209:Financial Markets and Institutions
+                </h3>
+                <div class="course-buttons">
+                  <a href="#f409-books" class="course-button books">
+                    <i class="fas fa-book"></i> BOOKS
+                  </a>
+                  <a href="#f409-notes" class="course-button notes">
+                    <i class="fas fa-sticky-note"></i> NOTES
+                  </a>
+                  <a href="#f409-slides" class="course-button slides">
+                    <i class="fas fa-presentation"></i> SLIDES
+                  </a>
+                  <a href="#f409-pq" class="course-button pq">
+                    <i class="fas fa-question-circle"></i> PQ
+                  </a>
+                  <a href="#f409-audio" class="course-button audio">
+                    <i class="fas fa-volume-up"></i> CLASS AUDIO
+                  </a>
+                </div>
+              </div>
+
+              <!-- F-410: Real Estate -->
+              <div class="course-item">
+                <h3 class="course-title">F-210: Insurance and Risk Management</h3>
+                <div class="course-buttons">
+                  <a href="#f410-books" class="course-button books">
+                    <i class="fas fa-book"></i> BOOKS
+                  </a>
+                  <a href="#f410-notes" class="course-button notes">
+                    <i class="fas fa-sticky-note"></i> NOTES
+                  </a>
+                  <a href="#f410-slides" class="course-button slides">
+                    <i class="fas fa-presentation"></i> SLIDES
+                  </a>
+                  <a href="#f410-pq" class="course-button pq">
+                    <i class="fas fa-question-circle"></i> PQ
+                  </a>
+                  <a href="#f410-audio" class="course-button audio">
+                    <i class="fas fa-volume-up"></i> CLASS AUDIO
+                  </a>
+                </div>
+              </div>
+<!-- 
+              F-414: Business Forecasting
+              <div class="course-item">
+                <h3 class="course-title">F-414: Business Forecasting</h3>
+                <div class="course-buttons">
+                  <a href="#f414-books" class="course-button books">
+                    <i class="fas fa-book"></i> BOOKS
+                  </a>
+                  <a href="#f414-notes" class="course-button notes">
+                    <i class="fas fa-sticky-note"></i> NOTES
+                  </a>
+                  <a href="#f414-slides" class="course-button slides">
+                    <i class="fas fa-presentation"></i> SLIDES
+                  </a>
+                  <a href="#f414-pq" class="course-button pq">
+                    <i class="fas fa-question-circle"></i> PQ
+                  </a>
+                </div>
+              </div>
+            </div> -->
+
+            <!-- Seniors' Links -->
+            <div class="seniors-section">
+              <h3 class="seniors-header">
+                <i class="fas fa-users"></i>
+                Seniors' Links
+              </h3>
+              <div class="seniors-links">
+                <a
+                  href="https://example.com/nishat"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="senior-link"
+                >
+                  <i class="fas fa-external-link-alt"></i>
+                  Nishat Bhai
+                </a>
+                <a
+                  href="https://example.com/jarin"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="senior-link"
+                >
+                  <i class="fas fa-external-link-alt"></i>
+                  Jarin Apu
+                </a>
+              </div>
+            </div>
+
+            <!-- Quote -->
+            <div class="quote-section">
+              <blockquote class="quote-text">
+                <div class="quote-line">"When my time comes</div>
+                <div class="quote-line">Forget the wrong that I've done</div>
+                <div class="quote-line">
+                  Help me leave behind some reasons to be missed
+                </div>
+                <div class="quote-line">And don't resent me</div>
+                <div class="quote-line">And when you're feeling empty</div>
+                <div class="quote-line">Keep me in your memory</div>
+                <div class="quote-line">Leave out all the rest"</div>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<script src="script.js"></script>
+  </body>
+</html>
