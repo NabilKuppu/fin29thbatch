@@ -1,68 +1,135 @@
-// Countdown Timer
-// Set target date to August 15th of current year
-const currentYear = new Date().getFullYear();
-const targetDate = new Date(currentYear, 7, 15).getTime(); // Month is 0-based, so 7 = August
+// Countdown Timer Configuration
+const COUNTDOWN_CONFIG = {
+  targetMonth: 7, // August (0-based)
+  targetDay: 15,
+  updateInterval: 1000, // Update every second
+  localStorageKey: "countdownData",
+};
 
-// Check if we need to set next year's date
-const now = new Date().getTime();
-if (now > targetDate) {
-  // If current date is past August 15th, set target to next year
-  const nextYear = currentYear + 1;
-  targetDate = new Date(nextYear, 7, 15).getTime();
+// Initialize countdown target date
+function initializeTargetDate() {
+  const currentYear = new Date().getFullYear();
+  let targetDate = new Date(
+    currentYear,
+    COUNTDOWN_CONFIG.targetMonth,
+    COUNTDOWN_CONFIG.targetDay
+  ).getTime();
+  const now = new Date().getTime();
+
+  // If current date is past target date, set to next year
+  if (now > targetDate) {
+    targetDate = new Date(
+      currentYear + 1,
+      COUNTDOWN_CONFIG.targetMonth,
+      COUNTDOWN_CONFIG.targetDay
+    ).getTime();
+  }
+
+  return targetDate;
 }
 
+// Format number to always show two digits
+function formatNumber(number) {
+  return number.toString().padStart(2, "0");
+}
+
+// Calculate time units
+function calculateTimeUnits(difference) {
+  return {
+    days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+    minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+    seconds: Math.floor((difference % (1000 * 60)) / 1000),
+  };
+}
+
+// Update DOM elements with countdown values
+function updateDOM(timeUnits) {
+  const elements = {
+    days: document.getElementById("days"),
+    hours: document.getElementById("hours"),
+    minutes: document.getElementById("minutes"),
+    seconds: document.getElementById("seconds"),
+  };
+
+  // Update each element with animation
+  Object.entries(timeUnits).forEach(([unit, value]) => {
+    if (elements[unit]) {
+      elements[unit].textContent = formatNumber(value);
+      elements[unit].classList.add("pulse");
+      setTimeout(() => elements[unit].classList.remove("pulse"), 1000);
+    }
+  });
+}
+
+// Store countdown data in localStorage
+function storeCountdownData(timeUnits) {
+  try {
+    localStorage.setItem(
+      COUNTDOWN_CONFIG.localStorageKey,
+      JSON.stringify({
+        ...timeUnits,
+        timestamp: new Date().getTime(),
+      })
+    );
+  } catch (error) {
+    console.warn("Failed to store countdown data:", error);
+  }
+}
+
+// Load countdown data from localStorage
+function loadCountdownData() {
+  try {
+    const data = localStorage.getItem(COUNTDOWN_CONFIG.localStorageKey);
+    if (data) {
+      const parsedData = JSON.parse(data);
+      const timeSinceLastUpdate = new Date().getTime() - parsedData.timestamp;
+
+      // Only use stored data if it's less than 1 minute old
+      if (timeSinceLastUpdate < 60000) {
+        return parsedData;
+      }
+    }
+  } catch (error) {
+    console.warn("Failed to load countdown data:", error);
+  }
+  return null;
+}
+
+// Main countdown update function
 function updateCountdown() {
+  const targetDate = initializeTargetDate();
   const now = new Date().getTime();
   const difference = targetDate - now;
 
   if (difference > 0) {
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor(
-      (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
-    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-    document.getElementById("days").textContent = days;
-    document.getElementById("hours").textContent = hours;
-    document.getElementById("minutes").textContent = minutes;
-    document.getElementById("seconds").textContent = seconds;
-
-    // Store the current countdown values in localStorage
-    localStorage.setItem("countdownDays", days);
-    localStorage.setItem("countdownHours", hours);
-    localStorage.setItem("countdownMinutes", minutes);
-    localStorage.setItem("countdownSeconds", seconds);
+    const timeUnits = calculateTimeUnits(difference);
+    updateDOM(timeUnits);
+    storeCountdownData(timeUnits);
   } else {
     // Countdown finished
-    document.getElementById("days").textContent = 0;
-    document.getElementById("hours").textContent = 0;
-    document.getElementById("minutes").textContent = 0;
-    document.getElementById("seconds").textContent = 0;
+    updateDOM({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+    localStorage.removeItem(COUNTDOWN_CONFIG.localStorageKey);
   }
 }
 
-// Function to initialize countdown with stored values
+// Initialize countdown
 function initializeCountdown() {
-  const storedDays = localStorage.getItem("countdownDays");
-  const storedHours = localStorage.getItem("countdownHours");
-  const storedMinutes = localStorage.getItem("countdownMinutes");
-  const storedSeconds = localStorage.getItem("countdownSeconds");
-
-  if (storedDays !== null) {
-    document.getElementById("days").textContent = storedDays;
-    document.getElementById("hours").textContent = storedHours;
-    document.getElementById("minutes").textContent = storedMinutes;
-    document.getElementById("seconds").textContent = storedSeconds;
+  const storedData = loadCountdownData();
+  if (storedData) {
+    updateDOM(storedData);
   }
+  updateCountdown(); // Initial update
+  return setInterval(updateCountdown, COUNTDOWN_CONFIG.updateInterval);
 }
 
-// Update countdown every second
-setInterval(updateCountdown, 1000);
+// Start the countdown
+const countdownInterval = initializeCountdown();
 
-// Initialize with stored values and then start updating
-initializeCountdown();
-updateCountdown(); // Initial call
+// Clean up interval when page is unloaded
+window.addEventListener("beforeunload", () => {
+  clearInterval(countdownInterval);
+});
 
 // Add click animations
 document.querySelectorAll("button, a").forEach((element) => {
@@ -88,11 +155,9 @@ document.querySelectorAll(".course-item").forEach((item) => {
 // Navigation button functionality
 document.querySelectorAll(".nav-button").forEach((button) => {
   button.addEventListener("click", function () {
-    // Remove active class from all buttons
     document
       .querySelectorAll(".nav-button")
       .forEach((btn) => btn.classList.remove("active"));
-    // Add active class to clicked button
     this.classList.add("active");
   });
 });
