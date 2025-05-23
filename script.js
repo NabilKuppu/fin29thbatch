@@ -1,6 +1,15 @@
 // Countdown Timer
-// Calculate target date ONCE when the page loads
-const targetDate = new Date().getTime() + 30 * 24 * 60 * 60 * 1000; // 30 days from now
+// Set target date to August 15th of current year
+const currentYear = new Date().getFullYear();
+const targetDate = new Date(currentYear, 7, 15).getTime(); // Month is 0-based, so 7 = August
+
+// Check if we need to set next year's date
+const now = new Date().getTime();
+if (now > targetDate) {
+  // If current date is past August 15th, set target to next year
+  const nextYear = currentYear + 1;
+  targetDate = new Date(nextYear, 7, 15).getTime();
+}
 
 function updateCountdown() {
   const now = new Date().getTime();
@@ -18,6 +27,12 @@ function updateCountdown() {
     document.getElementById("hours").textContent = hours;
     document.getElementById("minutes").textContent = minutes;
     document.getElementById("seconds").textContent = seconds;
+
+    // Store the current countdown values in localStorage
+    localStorage.setItem("countdownDays", days);
+    localStorage.setItem("countdownHours", hours);
+    localStorage.setItem("countdownMinutes", minutes);
+    localStorage.setItem("countdownSeconds", seconds);
   } else {
     // Countdown finished
     document.getElementById("days").textContent = 0;
@@ -27,8 +42,26 @@ function updateCountdown() {
   }
 }
 
+// Function to initialize countdown with stored values
+function initializeCountdown() {
+  const storedDays = localStorage.getItem("countdownDays");
+  const storedHours = localStorage.getItem("countdownHours");
+  const storedMinutes = localStorage.getItem("countdownMinutes");
+  const storedSeconds = localStorage.getItem("countdownSeconds");
+
+  if (storedDays !== null) {
+    document.getElementById("days").textContent = storedDays;
+    document.getElementById("hours").textContent = storedHours;
+    document.getElementById("minutes").textContent = storedMinutes;
+    document.getElementById("seconds").textContent = storedSeconds;
+  }
+}
+
 // Update countdown every second
 setInterval(updateCountdown, 1000);
+
+// Initialize with stored values and then start updating
+initializeCountdown();
 updateCountdown(); // Initial call
 
 // Add click animations
