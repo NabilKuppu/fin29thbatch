@@ -1,9 +1,9 @@
 // Countdown Timer Configuration
 const COUNTDOWN_CONFIG = {
-  targetMonth: 7, // August (0-based)
-  targetDay: 15,
+  targetMonth: 6, // July (0-based)
+  targetDay: 13,
   updateInterval: 1000, // Update every second
-  localStorageKey: "countdownData",
+  localStorageKey: 'countdownData',
 };
 
 // Initialize countdown target date
@@ -30,7 +30,7 @@ function initializeTargetDate() {
 
 // Format number to always show two digits
 function formatNumber(number) {
-  return number.toString().padStart(2, "0");
+  return number.toString().padStart(2, '0');
 }
 
 // Calculate time units
@@ -46,18 +46,18 @@ function calculateTimeUnits(difference) {
 // Update DOM elements with countdown values
 function updateDOM(timeUnits) {
   const elements = {
-    days: document.getElementById("days"),
-    hours: document.getElementById("hours"),
-    minutes: document.getElementById("minutes"),
-    seconds: document.getElementById("seconds"),
+    days: document.getElementById('days'),
+    hours: document.getElementById('hours'),
+    minutes: document.getElementById('minutes'),
+    seconds: document.getElementById('seconds'),
   };
 
   // Update each element with animation
   Object.entries(timeUnits).forEach(([unit, value]) => {
     if (elements[unit]) {
       elements[unit].textContent = formatNumber(value);
-      elements[unit].classList.add("pulse");
-      setTimeout(() => elements[unit].classList.remove("pulse"), 1000);
+      elements[unit].classList.add('pulse');
+      setTimeout(() => elements[unit].classList.remove('pulse'), 1000);
     }
   });
 }
@@ -73,7 +73,7 @@ function storeCountdownData(timeUnits) {
       })
     );
   } catch (error) {
-    console.warn("Failed to store countdown data:", error);
+    console.warn('Failed to store countdown data:', error);
   }
 }
 
@@ -91,7 +91,7 @@ function loadCountdownData() {
       }
     }
   } catch (error) {
-    console.warn("Failed to load countdown data:", error);
+    console.warn('Failed to load countdown data:', error);
   }
   return null;
 }
@@ -127,43 +127,43 @@ function initializeCountdown() {
 const countdownInterval = initializeCountdown();
 
 // Clean up interval when page is unloaded
-window.addEventListener("beforeunload", () => {
+window.addEventListener('beforeunload', () => {
   clearInterval(countdownInterval);
 });
 
 // Add click animations
-document.querySelectorAll("button, a").forEach((element) => {
-  element.addEventListener("click", function () {
-    this.style.transform = "scale(0.95)";
+document.querySelectorAll('button, a').forEach((element) => {
+  element.addEventListener('click', function () {
+    this.style.transform = 'scale(0.95)';
     setTimeout(() => {
-      this.style.transform = "";
+      this.style.transform = '';
     }, 150);
   });
 });
 
 // Add hover effects for course items
-document.querySelectorAll(".course-item").forEach((item) => {
-  item.addEventListener("mouseenter", function () {
-    this.style.transform = "translateX(10px)";
+document.querySelectorAll('.course-item').forEach((item) => {
+  item.addEventListener('mouseenter', function () {
+    this.style.transform = 'translateX(10px)';
   });
 
-  item.addEventListener("mouseleave", function () {
-    this.style.transform = "translateX(0)";
+  item.addEventListener('mouseleave', function () {
+    this.style.transform = 'translateX(0)';
   });
 });
 
 // Navigation button functionality
-document.querySelectorAll(".nav-button").forEach((button) => {
-  button.addEventListener("click", function () {
+document.querySelectorAll('.nav-button').forEach((button) => {
+  button.addEventListener('click', function () {
     document
-      .querySelectorAll(".nav-button")
-      .forEach((btn) => btn.classList.remove("active"));
-    this.classList.add("active");
+      .querySelectorAll('.nav-button')
+      .forEach((btn) => btn.classList.remove('active'));
+    this.classList.add('active');
   });
 });
 
 // Add loading animation on page load
-window.addEventListener("load", function () {
-  document.querySelector(".dashboard-container").style.animation =
-    "fadeIn 0.8s ease-out";
+window.addEventListener('load', function () {
+  document.querySelector('.dashboard-container').style.animation =
+    'fadeIn 0.8s ease-out';
 });
